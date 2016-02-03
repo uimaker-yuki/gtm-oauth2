@@ -410,6 +410,8 @@ static GTMOAuth2Keychain* gGTMOAuth2DefaultKeychain = nil;
       self.view.hidden = YES;
     }
   }
+  // hide webview fast
+  webView_.hidden = YES;
 }
 
 - (void)notifyWithName:(NSString *)name
