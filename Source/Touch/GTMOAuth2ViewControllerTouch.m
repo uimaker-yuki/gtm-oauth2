@@ -733,9 +733,9 @@ static Class gSignInClass = Nil;
 
   if (!isViewShown_) {
     isViewShown_ = YES;
-    if ([self isNavigationBarTranslucent]) {
+//    if ([self isNavigationBarTranslucent]) {
       [self moveWebViewFromUnderNavigationBar];
-    }
+//    }
     if (![signIn_ startSigningIn]) {
       // Can't start signing in. We must pop our view.
       // UIWebview needs time to stabilize. Animations need time to complete.
