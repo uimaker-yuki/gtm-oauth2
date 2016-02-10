@@ -41,6 +41,7 @@ static GTMOAuth2Keychain* gGTMOAuth2DefaultKeychain = nil;
 @property (nonatomic, copy) NSURLRequest *request;
 @property (nonatomic, copy) NSArray *systemCookies;
 @property (nonatomic, copy) NSArray *signInCookies;
+@property (nonatomic) UINavigationBar *naviBar;
 @end
 
 @implementation GTMOAuth2ViewControllerTouch
@@ -378,6 +379,25 @@ static GTMOAuth2Keychain* gGTMOAuth2DefaultKeychain = nil;
 - (void)viewDidLoad {
   [super viewDidLoad];
   [self setUpNavigation];
+    
+    // add cancel button
+    _naviBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 63)];
+    [self.view addSubview:_naviBar];
+    
+    // キャンセルボタン
+    UIBarButtonItem *cancelItem;
+    UIImage* cancelImage = [UIImage imageNamed:@"iconCancel"];
+    cancelItem = [[UIBarButtonItem alloc]initWithImage:cancelImage style:UIBarButtonItemStylePlain target:self action:@selector(cancelSignIn:)];
+    
+    // タイトルと配置
+    UINavigationItem *navigItem = [[UINavigationItem alloc] initWithTitle:@"アカウントを追加"];
+    navigItem.leftBarButtonItem = cancelItem;
+    _naviBar.items = @[navigItem];
+}
+
+-(void)cancelSignIn:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:^(void){}];
 }
 
 - (void)setUpNavigation {
@@ -799,6 +819,11 @@ static Class gSignInClass = Nil;
   // -[UIViewController viewDidLayoutSubviews] is documented as a no-op, that
   // didn't exist before iOS 5.
   [initialActivityIndicator_ setCenter:[webView_ center]];
+    
+    // adjust naviBar
+    CGFloat width = CGRectGetWidth(self.view.bounds);
+    _naviBar.bounds = CGRectMake(0, 0, width, 63);
+    
 }
 
 - (BOOL)webView:(UIWebView *)webView
